@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".indicators.AverageGlucose">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="15sp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/Opis"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/podaj_z_ilu_dni_chcesz_obliczy_redni_glukoz"
+                android:layout_marginEnd="10dp"
+                android:textAlignment="center"
+                android:textSize="20sp"/>
+
+            <EditText
+                android:id="@+id/daysAverage"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:ems="10"
+                android:textSize="20sp"
+                android:inputType="numberDecimal"
+                android:autofillHints="1"
+                tools:ignore="LabelFor" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/butttonAVG"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/oblicz" />
+            <TextView
+                android:id="@+id/average"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/rednia_glukoza"
+                android:padding="10dp"/>
+            <TextView
+                android:id="@+id/resultAverage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:textSize="15sp"
+                android:text=""
+                android:textColor="@color/light_blue_600"/>
+        </LinearLayout>
+    </LinearLayout>
+
+</FrameLayout>

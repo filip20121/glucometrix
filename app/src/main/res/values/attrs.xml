@@ -1,0 +1,18 @@
+<resources>
+    <declare-styleable name="FullscreenAttrs">
+        <attr name="fullscreenBackgroundColor" format="color" />
+        <attr name="fullscreenTextColor" format="color" />
+    </declare-styleable>
+
+        <string-array name="desc_array">
+            <item>after wake up</item>
+            <item>before breakfast</item>
+            <item>after breakfast</item>
+            <item>before dinner</item>
+            <item>after dinner</item>
+            <item>before supper</item>
+            <item>after supper</item>
+            <item>before sleep</item>
+        </string-array>
+
+</resources>
