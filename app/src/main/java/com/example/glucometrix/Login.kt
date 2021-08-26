@@ -22,17 +22,16 @@ class Login : AppCompatActivity() {
         val loginButton = findViewById<Button>(R.id.buttonLogIn)
         val errorText: TextView = findViewById(R.id.errorMsg)
 
-        registerButton.setOnClickListener(){
+        registerButton.setOnClickListener{
             registerNewUser(it)
         }
-        loginButton.setOnClickListener() {
+        loginButton.setOnClickListener{
             if (validate()) {
                 errorText.text=""
                 intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
             }
             else{
-                //Toast.makeText(applicationContext, "Login or password is invalid", Toast.LENGTH_LONG)
                 errorText.text = "Nazwa użytkownika lub hasło jest niepoprawne"
             }
         }
@@ -58,7 +57,6 @@ class Login : AppCompatActivity() {
             if(status > -1) {
                 Toast.makeText(applicationContext, "User saved", Toast.LENGTH_SHORT).show()
             }
-
         }
         else{
             Toast.makeText(applicationContext, "Login and password cannot be blank", Toast.LENGTH_LONG).show()

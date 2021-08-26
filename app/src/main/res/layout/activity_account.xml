@@ -31,7 +31,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="@string/dane_konta" />
+            android:text="@string/dane_konta"
+            android:textSize="20sp"/>
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -45,13 +46,15 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_marginEnd="4dp"
-                android:text="@string/nazwa_uzytkownika" />
+                android:text="@string/nazwa_uzytkownika"
+                android:textSize="18sp"/>
 
             <TextView
                 android:id="@+id/loginNameData"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:textSize="18sp"
                 android:text="" />
 
         </LinearLayout>
@@ -70,71 +73,90 @@
                 android:layout_weight="1"
                 android:text="@string/haslo"
                 android:layout_marginEnd="4dp"
-                tools:ignore="NestedWeights" />
+                tools:ignore="NestedWeights"
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/passwordNameData"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:textSize="18sp"
                 android:text="" />
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_marginBottom="20sp"
+            android:layout_gravity="center">
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
                 <TextView
                     android:id="@+id/changeloginTxt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/insert_new_login" />
+                    android:text="@string/insert_new_login"
+                    android:textSize="20sp"/>
                 <EditText
                     android:id="@+id/loginChanges"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="2.5"
                     android:text=""
                     android:autofillHints="nowy login"
                     android:inputType="text"
-                    tools:ignore="LabelFor" />
+                    tools:ignore="LabelFor"
+                    android:textSize="20sp"
+                    android:layout_marginBottom="5sp"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
                 <TextView
                     android:id="@+id/changePasswordTxt"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/insert_new_paassword" />
+                    android:text="@string/insert_new_paassword"
+                    android:textSize="20sp"
+                    android:layout_marginBottom="5sp"/>
                 <EditText
                     android:id="@+id/passwordChanges"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="5"
                     android:text=""
                     android:autofillHints="nowe hasło"
                     android:inputType="text"
-                    tools:ignore="TextFields" />
+                    tools:ignore="TextFields"
+                    android:textSize="20sp"/>
             </LinearLayout>
-            <Button
-                android:id="@+id/buttonChangeLogin"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="0"
-                android:text="@string/zmien_nazwe_uzytkownika" />
-            <Button
-                android:id="@+id/buttonChangePassword"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="0"
-                android:text="@string/zmien_haslo" />
+                android:layout_gravity="center">
+                <Button
+                    android:id="@+id/buttonChangeLogin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="0"
+                    android:layout_marginTop="5sp"
+                    android:layout_marginBottom="5sp"
+                    android:text="@string/zmien_nazwe_uzytkownika" />
+                <Button
+                    android:id="@+id/buttonChangePassword"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="0"
+                    android:text="@string/zmien_haslo" />
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

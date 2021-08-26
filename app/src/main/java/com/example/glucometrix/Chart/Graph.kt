@@ -11,6 +11,7 @@ import android.widget.SeekBar
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import com.example.glucometrix.DatabaseHandler
 import com.example.glucometrix.R
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.components.Legend.LegendForm
@@ -53,12 +54,13 @@ class Graph : AppCompatActivity(), SeekBar.OnSeekBarChangeListener, OnChartValue
         )
 
         setContentView(R.layout.activity_graph)
-
+        val glucoSize =  DatabaseHandler(this).showNumOfGlucos()
+        val hourList = DatabaseHandler(this).showHour()
         title = "Glucose results"
         tvX = findViewById(R.id.tvXMax)
         //tvY = findViewById(R.id.tvYMax)
         seekBarX = findViewById(R.id.seekBar1)
-        seekBarX!!.max = hourArray.size//GlucoResults().glucoseList.size
+        seekBarX!!.max = glucoSize//hourArray.size
         seekBarX!!.setOnSeekBarChangeListener(this)
         //seekBarY = findViewById(R.id.seekBar2)
         //seekBarY!!.max = 180
@@ -121,12 +123,12 @@ class Graph : AppCompatActivity(), SeekBar.OnSeekBarChangeListener, OnChartValue
             yAxis.axisMinimum = 0f
         }
 
-        xAxis.valueFormatter = IndexAxisValueFormatter(hourArray)
+        xAxis.valueFormatter = IndexAxisValueFormatter(hourList)
 
         // add data
         seekBarX!!.progress = 1
        // seekBarY!!.progress = 180
-        setData(glucoArray.size)
+        setData(glucoSize)
 
         // draw points over time
         chart!!.animateX(1500)
@@ -144,8 +146,10 @@ class Graph : AppCompatActivity(), SeekBar.OnSeekBarChangeListener, OnChartValue
     @SuppressLint("UseCompatLoadingForDrawables")
     private fun setData(count: Int) {
         val values: ArrayList<Entry> = ArrayList()
+        val glucoList = DatabaseHandler(this).showGlucos()
+
         for (i in 0 until count) {
-            val value = glucoArray[i].toFloat() //Random.nextInt(0, 300).toFloat() //
+            val value = glucoList[i].toFloat() //Random.nextInt(0, 300).toFloat() //
             values.add(Entry(i.toFloat(), value, resources.getDrawable(R.drawable.fade_red)))
             // values.add(Entry(hourArray[i].toFloat(), value, resources.getDrawable(R.drawable.fade_red)))
         }
@@ -208,110 +212,6 @@ class Graph : AppCompatActivity(), SeekBar.OnSeekBarChangeListener, OnChartValue
             chart!!.data = data
         }
     }
-
-    /* fun onOptionsItemSelected(item: MenuItem): Boolean {
-         when (item.getItemId()) {
-             R.id.viewGithub -> {
-                 val i = Intent(Intent.ACTION_VIEW)
-                 i.data = Uri.parse("https://github.com/PhilJay/MPAndroidChart/blob/master/MPChartExample/src/com/xxmassdeveloper/mpchartexample/LineChartActivity1.java")
-                 startActivity(i)
-             }
-             R.id.actionToggleValues -> {
-                 val sets = chart!!.data
-                         .dataSets
-                 for (iSet in sets) {
-                     val set = iSet as LineDataSet
-                     set.setDrawValues(!set.isDrawValuesEnabled)
-                 }
-                 chart!!.invalidate()
-             }
-             R.id.actionToggleIcons -> {
-                 val sets = chart!!.data
-                         .dataSets
-                 for (iSet in sets) {
-                     val set = iSet as LineDataSet
-                     set.setDrawIcons(!set.isDrawIconsEnabled)
-                 }
-                 chart!!.invalidate()
-             }
-             R.id.actionToggleHighlight -> {
-                 if (chart!!.data != null) {
-                     chart!!.data.isHighlightEnabled = !chart!!.data.isHighlightEnabled
-                     chart!!.invalidate()
-                 }
-             }
-             R.id.actionToggleFilled -> {
-                 val sets = chart!!.data
-                         .dataSets
-                 for (iSet in sets) {
-                     val set = iSet as LineDataSet
-                     if (set.isDrawFilledEnabled) set.setDrawFilled(false) else set.setDrawFilled(true)
-                 }
-                 chart!!.invalidate()
-             }
-             R.id.actionToggleCircles -> {
-                 val sets = chart!!.data
-                         .dataSets
-                 for (iSet in sets) {
-                     val set = iSet as LineDataSet
-                     if (set.isDrawCirclesEnabled) set.setDrawCircles(false) else set.setDrawCircles(true)
-                 }
-                 chart!!.invalidate()
-             }
-             R.id.actionToggleCubic -> {
-                 val sets = chart!!.data
-                         .dataSets
-                 for (iSet in sets) {
-                     val set = iSet as LineDataSet
-                     set.mode = if (set.mode == LineDataSet.Mode.CUBIC_BEZIER) LineDataSet.Mode.LINEAR else LineDataSet.Mode.CUBIC_BEZIER
-                 }
-                 chart!!.invalidate()
-             }
-             R.id.actionToggleStepped -> {
-                 val sets = chart!!.data
-                         .dataSets
-                 for (iSet in sets) {
-                     val set = iSet as LineDataSet
-                     set.mode = if (set.mode == LineDataSet.Mode.STEPPED) LineDataSet.Mode.LINEAR else LineDataSet.Mode.STEPPED
-                 }
-                 chart!!.invalidate()
-             }
-             R.id.actionToggleHorizontalCubic -> {
-                 val sets = chart!!.data
-                         .dataSets
-                 for (iSet in sets) {
-                     val set = iSet as LineDataSet
-                     set.mode = if (set.mode == LineDataSet.Mode.HORIZONTAL_BEZIER) LineDataSet.Mode.LINEAR else LineDataSet.Mode.HORIZONTAL_BEZIER
-                 }
-                 chart!!.invalidate()
-             }
-             R.id.actionTogglePinch -> {
-                 if (chart!!.isPinchZoomEnabled) chart!!.setPinchZoom(false) else chart!!.setPinchZoom(true)
-                 chart!!.invalidate()
-             }
-             R.id.actionToggleAutoScaleMinMax -> {
-                 chart!!.isAutoScaleMinMaxEnabled = !chart!!.isAutoScaleMinMaxEnabled
-                 chart!!.notifyDataSetChanged()
-             }
-             R.id.animateX -> {
-                 chart!!.animateX(2000)
-             }
-             R.id.animateY -> {
-                 chart!!.animateY(2000, Easing.EaseInCubic)
-             }
-             R.id.animateXY -> {
-                 chart!!.animateXY(2000, 2000)
-             }
-             R.id.actionSave -> {
-                 if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
-                     saveToGallery()
-                 } else {
-                     requestStoragePermission(chart)
-                 }
-             }
-         }
-         return true
-     }*/
 
     override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
         tvX!!.text = seekBarX!!.progress.toString()

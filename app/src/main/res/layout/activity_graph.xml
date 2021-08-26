@@ -9,7 +9,11 @@
             android:id="@+id/chart1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_above="@+id/seekBar1" />
+            android:layout_above="@+id/seekBar1"
+            android:layout_marginTop="10sp"
+            android:layout_marginEnd="3sp"
+            android:layout_marginStart="3sp"
+            android:layout_marginBottom="3sp"/>
 
        <!-- <SeekBar
             android:id="@+id/seekBar2"
@@ -35,6 +39,7 @@
             android:layout_marginEnd="5dp"
             android:paddingBottom="12dp"/>
     <!--android:layout_above="@+id/seekBar2"-->
+
     <TextView
         android:id="@+id/tvXMax"
         android:layout_width="50dp"
@@ -42,8 +47,8 @@
         android:layout_alignBottom="@+id/seekBar1"
         android:layout_alignParentEnd="true"
         android:text="@string/dash"
-        android:layout_marginBottom="15dp"
-        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="7dp"
+        android:layout_marginEnd="15dp"
         android:gravity="right"
         android:textAppearance="?android:attr/textAppearanceMedium"
         tools:ignore="RtlHardcoded" />

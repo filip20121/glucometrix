@@ -3,6 +3,7 @@ package com.example.glucometrix.Chart
 import android.annotation.SuppressLint
 import android.content.Context
 import android.widget.TextView
+import com.example.glucometrix.DatabaseHandler
 import com.example.glucometrix.R
 import com.github.mikephil.charting.components.MarkerView
 import com.github.mikephil.charting.data.Entry
@@ -13,18 +14,12 @@ import com.github.mikephil.charting.utils.MPPointF
 class MyMarkerView(context: Context, layoutResource: Int) : MarkerView(context, layoutResource) {
     private val tvContent: TextView = findViewById(R.id.tvContent)
     private var iter: Int = 0
-    var glucoseList = mutableListOf("120", "145",
-            "101", "93",
-            "168", "67",
-            "113", "123")
+    var glucoseList = listOf<String>()
+    var descriptionList = listOf<String>()
 
-    var descriptionList = listOf("after wake up",
-            "before breakfast", "after breakfast", "before dinner",
-            "after dinner", "before supper", "after supper",
-            "before sleep")
-    // runs every time the MarkerView is redrawn, can be used to update the
-    // content (user-interface)
     override fun refreshContent(e: Entry?, highlight: Highlight?) {
+            descriptionList = DatabaseHandler(context).showDescList()
+               glucoseList = DatabaseHandler(context).showGlucos()
         for(el in 0 .. glucoseList.size){
             if(glucoseList[el].toFloat() == highlight?.y){
                 iter = el

@@ -203,13 +203,7 @@ class DatabaseHandler(context: Context): SQLiteOpenHelper(
         var glucoseList: MutableList<GlucoseData> = ArrayList()
         val dateGlucoseList: MutableList<DateGlucose> = ArrayList()
         val db = this.readableDatabase
-        val login = showLogin()
-        val password = showPassword()
-        val selectQuery2 = "SELECT $KEY_ID FROM $TABLE_USERS WHERE $KEY_LOGIN = '$login' AND $KEY_PASSWORD = '$password'"
-        val c2: Cursor = db.rawQuery(selectQuery2, null)
-        var userId = ""
-        c2.moveToFirst()
-        userId = c2.getInt(c2.getColumnIndex(KEY_ID)).toString()
+        val userId = getCurrId(db)
         val selectQuery = "SELECT $KEY_USER_ID, $KEY_DATE, $KEY_HOUR, $KEY_GLUCOSE, $KEY_DESC FROM $TABLE_GLUCO WHERE $KEY_USER_ID ='$userId' ORDER BY $KEY_DATE DESC;"
         val selectQuery1 = "SELECT DISTINCT $KEY_DATE FROM $TABLE_GLUCO WHERE $KEY_USER_ID ='$userId';"
 
@@ -239,13 +233,14 @@ class DatabaseHandler(context: Context): SQLiteOpenHelper(
         return dateGlucoseList
     }
 
-    fun showAllGlucose(days: String): Double {
-        val selectQuery = "SELECT $KEY_DATE, $KEY_HOUR, $KEY_GLUCOSE, $KEY_DESC FROM $TABLE_GLUCO ORDER BY $KEY_DATE DESC;"
-        val selectQuery1 = "SELECT DISTINCT $KEY_DATE FROM $TABLE_GLUCO ORDER BY $KEY_ID DESC LIMIT $days;"
-
+    fun showAvgGlucose(days: String): Double {
         var suma = 0.0
         var count = 0
         val db = this.readableDatabase
+        val userId = getCurrId(db)
+        val selectQuery = "SELECT $KEY_DATE, $KEY_HOUR, $KEY_GLUCOSE, $KEY_DESC FROM $TABLE_GLUCO  WHERE $KEY_USER_ID ='$userId' ORDER BY $KEY_DATE DESC;"
+        val selectQuery1 = "SELECT DISTINCT $KEY_DATE FROM $TABLE_GLUCO WHERE $KEY_USER_ID ='$userId' ORDER BY $KEY_ID DESC LIMIT $days;"
+
         val c1: Cursor = db.rawQuery(selectQuery1, null)
 
         if (c1.moveToFirst()) {
@@ -266,27 +261,132 @@ class DatabaseHandler(context: Context): SQLiteOpenHelper(
         }
         return suma / count
     }
+    fun showHour(): List<String> {
+        var hourList: MutableList<String> = ArrayList()
+        val db = this.readableDatabase
+        val userId = getCurrId(db)
+        val selectQuery = "SELECT $KEY_USER_ID, $KEY_DATE, $KEY_HOUR, $KEY_GLUCOSE, $KEY_DESC FROM $TABLE_GLUCO WHERE $KEY_USER_ID ='$userId' ORDER BY $KEY_DATE DESC;"
+        val selectQuery1 = "SELECT DISTINCT $KEY_DATE FROM $TABLE_GLUCO WHERE $KEY_USER_ID ='$userId';"
+
+        val c1: Cursor = db.rawQuery(selectQuery1, null)
+        if (c1.moveToFirst()) {
+            do {
+                val date = c1.getString(c1.getColumnIndex(KEY_DATE))
+                val c: Cursor = db.rawQuery(selectQuery, null)
+                if (c.moveToFirst()) { //
+                    do {
+                        val date1 = c.getString(c.getColumnIndex(KEY_DATE))
+                        if (date1 == date) {//
+                            val t = c.getString(c.getColumnIndex(KEY_HOUR))
+                            hourList.add(t)
+                        }
+                    } while (c.moveToNext())
+                }
+            } while (c1.moveToNext())
+        }
+        return hourList
+    }
+    fun showDescList(): List<String> {
+        val descList: MutableList<String> = ArrayList()
+        val db = this.readableDatabase
+        val userId = getCurrId(db)
+        val selectQuery = "SELECT $KEY_USER_ID, $KEY_DATE, $KEY_HOUR, $KEY_GLUCOSE, $KEY_DESC FROM $TABLE_GLUCO WHERE $KEY_USER_ID ='$userId' ORDER BY $KEY_DATE DESC;"
+        val selectQuery1 = "SELECT DISTINCT $KEY_DATE FROM $TABLE_GLUCO WHERE $KEY_USER_ID ='$userId';"
+
+        val c1: Cursor = db.rawQuery(selectQuery1, null)
+        if (c1.moveToFirst()) {
+            do {
+                val date = c1.getString(c1.getColumnIndex(KEY_DATE))
+                val c: Cursor = db.rawQuery(selectQuery, null)
+                if (c.moveToFirst()) { //
+                    do {
+                        val date1 = c.getString(c.getColumnIndex(KEY_DATE))
+                        if (date1 == date) {//
+                            val t = c.getString(c.getColumnIndex(KEY_DESC))
+                            descList.add(t)
+                        }
+                    } while (c.moveToNext())
+                }
+            } while (c1.moveToNext())
+        }
+        return descList
+    }
+    fun showGlucos(): List<String> {
+        val glucoseList: MutableList<String> = ArrayList()
+        val db = this.readableDatabase
+        val userId = getCurrId(db)
+        val selectQuery = "SELECT $KEY_USER_ID, $KEY_DATE, $KEY_HOUR, $KEY_GLUCOSE, $KEY_DESC FROM $TABLE_GLUCO WHERE $KEY_USER_ID ='$userId' ORDER BY $KEY_DATE DESC;"
+        val selectQuery1 = "SELECT DISTINCT $KEY_DATE FROM $TABLE_GLUCO WHERE $KEY_USER_ID ='$userId';"
+
+        val c1: Cursor = db.rawQuery(selectQuery1, null)
+        if (c1.moveToFirst()) {
+            do {
+                val date = c1.getString(c1.getColumnIndex(KEY_DATE))
+                val c: Cursor = db.rawQuery(selectQuery, null)
+                if (c.moveToFirst()) { //
+                    do {
+                        val date1 = c.getString(c.getColumnIndex(KEY_DATE))
+                        if (date1 == date) {//
+                            val t = c.getString(c.getColumnIndex(KEY_GLUCOSE))
+                            glucoseList.add(t)
+                        }
+                    } while (c.moveToNext())
+                }
+            } while (c1.moveToNext())
+        }
+        return glucoseList
+    }
+    fun showNumOfGlucos(): Int {
+        val db = this.readableDatabase
+        val userId = getCurrId(db)
+        val selectQuery = "SELECT $KEY_USER_ID, $KEY_DATE, $KEY_HOUR, $KEY_GLUCOSE, $KEY_DESC FROM $TABLE_GLUCO WHERE $KEY_USER_ID ='$userId' ORDER BY $KEY_DATE DESC;"
+        val selectQuery1 = "SELECT DISTINCT $KEY_DATE FROM $TABLE_GLUCO WHERE $KEY_USER_ID ='$userId';"
+        var count = 0
+        val c1: Cursor = db.rawQuery(selectQuery1, null)
+        if (c1.moveToFirst()) {
+            do {
+                val date = c1.getString(c1.getColumnIndex(KEY_DATE))
+                val c: Cursor = db.rawQuery(selectQuery, null)
+                if (c.moveToFirst()) { //
+                    do {
+                        val date1 = c.getString(c.getColumnIndex(KEY_DATE))
+                        if (date1 == date) {//
+                            count +=1
+                        }
+                    } while (c.moveToNext())
+                }
+            } while (c1.moveToNext())
+        }
+
+        return count
+    }
 
     fun showNumDays(): Int {
-        val selectQuery = "SELECT DISTINCT $KEY_DATE FROM $TABLE_GLUCO;"
         val db = this.readableDatabase
+        val userId = getCurrId(db)
+        val selectQuery = "SELECT DISTINCT $KEY_DATE FROM $TABLE_GLUCO WHERE $KEY_USER_ID = '$userId';"
         val c: Cursor = db.rawQuery(selectQuery, null)
         c.moveToLast()
         return  c.count
     }
+
     fun showLogin(): String {
         return curLogin
     }
 
     fun showID(): Int {
-       /* val db = readableDatabase
+        return curId
+    }
+
+    fun getCurrId(db: SQLiteDatabase?): String{
         val login = showLogin()
         val password = showPassword()
         val selectQuery2 = "SELECT $KEY_ID FROM $TABLE_USERS WHERE $KEY_LOGIN = '$login' AND $KEY_PASSWORD = '$password'"
         val c2: Cursor = db!!.rawQuery(selectQuery2, null)
+        var userId = ""
         c2.moveToFirst()
-        return c2.getInt(c2.getColumnIndex(KEY_ID))*/
-        return curId
+        userId = c2.getInt(c2.getColumnIndex(KEY_ID)).toString()
+        return userId
     }
 
     fun showPassword(): String {

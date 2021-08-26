@@ -15,10 +15,6 @@ private const val ARG_PARAM2 = "param2"
 
 class AverageGlucose : Fragment() {
 
-    var glucoseList:List<String> = listOf()
-
-    var average = 0
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
