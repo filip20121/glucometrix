@@ -10,6 +10,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/WebPage">
+<include layout="@layout/toolbar"/>
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -19,120 +20,160 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:gravity="start"
-        tools:ignore="UselessParent">
-
+        tools:ignore="UselessParent"
+        android:paddingTop="50sp">
             <androidx.cardview.widget.CardView
                 android:id="@+id/card_view_insulinoodpornosc"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="wrap_content"
                 card_view:cardCornerRadius="4dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginStart="10dp"
                 app:cardElevation="5dp">
-
-                <ImageView
-                    android:id="@+id/imageViewInsulinoodpornosc"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="175dp"
-                    card_view:srcCompat="@drawable/insulinoodpornosc"
-                    android:contentDescription="@string/insulinoodporno"
-                    android:scaleType="fitCenter"/>
-
-                <TextView
-                    android:id="@+id/textViewAInsulinoodpornosc"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/insulinoodporno"
-                    android:layout_gravity="bottom|center"
-                    android:textSize="20sp"
-                    android:textColor="@color/light_blue_900"/>
-
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:paddingBottom="10sp">
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/insulinoodpornosc"/>
+                    <TextView
+                        android:id="@+id/textViewAInsulinoodpornosc"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="@string/insulinoodporno"
+                        android:textSize="30sp"
+                        android:textColor="@color/light_blue_900"/>
+                    <TextView
+                        android:id="@+id/textViewAInsulinoodpornoscDesc"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5sp"
+                        android:textAlignment="center"
+                        android:text="- Czy wystepuje u Ciebie? Sprawdź!\n- Jak najłatwiej ją zdiagnozować?\n- Na jakiej podstawie wyznacza się ją?\n- Kiedy nie należy lekceważyć swojej sytuacji?\n...i wiele więcej"
+                        android:textSize="15sp"
+                        android:layout_marginStart="10sp"
+                        android:textColor="@color/light_blue_900"/>
+                </LinearLayout>
             </androidx.cardview.widget.CardView>
             <androidx.cardview.widget.CardView
                 android:id="@+id/card_view_diet"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="wrap_content"
                 card_view:cardCornerRadius="4dp"
                 android:layout_marginBottom="10dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginStart="10dp"
                 app:cardElevation="5dp">
 
-                <ImageView
-                    android:id="@+id/imageViewADiet"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="175dp"
-                    card_view:srcCompat="@drawable/diet"
-                    android:contentDescription="@string/dieta_dla_cukrzyka"
-                    android:scaleType="fitCenter"/>
-
-                <TextView
-                    android:id="@+id/textViewDiet"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/dieta_dla_cukrzyka"
-                    android:layout_gravity="bottom|center"
-                    android:textSize="20sp"
-                    android:textColor="@color/light_blue_900"/>
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:paddingBottom="10sp">
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/diet"/>
+                    <TextView
+                        android:id="@+id/textViewDiet"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/dieta_dla_cukrzyka"
+                        android:layout_gravity="center"
+                        android:textSize="30sp"
+                        android:textColor="@color/light_blue_900"/>
+                    <TextView
+                        android:id="@+id/textViewDietDesc"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5sp"
+                        android:textAlignment="center"
+                        android:text="- Co jeść przy cukrzycy?\n- Dobór produktów\n- Dieta w cukrzycy\n- Porady specjalistów\n...i wiele więcej"
+                        android:textSize="15sp"
+                        android:layout_marginStart="10sp"
+                        android:textColor="@color/light_blue_900"/>
+                </LinearLayout>
             </androidx.cardview.widget.CardView>
-
-
-
             <androidx.cardview.widget.CardView
                 android:id="@+id/card_view_przykazania"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="wrap_content"
                 card_view:cardCornerRadius="4dp"
                 android:layout_marginBottom="10dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginStart="10dp"
                 app:cardElevation="5dp">
-
-                <ImageView
-                    android:id="@+id/imageViewPrzykazania"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="175dp"
-                    card_view:srcCompat="@drawable/przykazania"
-                    android:contentDescription="@string/graph"
-                    android:scaleType="fitCenter"/>
-
-                <TextView
-                    android:id="@+id/textViewPrzykazania"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/przykazania_cukrzyka"
-                    android:layout_gravity="bottom|center"
-                    android:textSize="20sp"
-                    android:textColor="@color/light_blue_900"/>
-
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:paddingBottom="10sp">
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/przykazania"/>
+                    <TextView
+                        android:id="@+id/textViewPrzykazania"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/cukrzycopedia"
+                        android:layout_gravity="bottom|center"
+                        android:textSize="30sp"
+                        android:textColor="@color/light_blue_900"/>
+                    <TextView
+                        android:id="@+id/textViewPrzykazaniaDesc"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5sp"
+                        android:textAlignment="center"
+                        android:text="- Jak z nią żyć?\n- Przykazania cukrzyka\n- Powikłania cukrzycy\n- Depresja cukrzyka\n...i wiele więcej"
+                        android:textSize="15sp"
+                        android:layout_marginStart="10sp"
+                        android:textColor="@color/light_blue_900"/>
+                </LinearLayout>
             </androidx.cardview.widget.CardView>
             <androidx.cardview.widget.CardView
                 android:id="@+id/card_view_powiklania"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="wrap_content"
                 card_view:cardCornerRadius="4dp"
                 android:layout_marginBottom="10dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginStart="10dp"
                 app:cardElevation="5dp">
-
-                <ImageView
-                    android:id="@+id/imageViewPowiklania"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="175dp"
-                    card_view:srcCompat="@drawable/powiklania_cykrzycy"
-                    android:contentDescription="@string/powiklania_cukrzycy"
-                    android:scaleType="fitCenter"/>
-
-                <TextView
-                    android:id="@+id/textViewPowiklania"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/powiklania_cukrzycy"
-                    android:layout_gravity="bottom|center"
-                    android:textSize="20sp"
-                    android:textColor="@color/light_blue_900"/>
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:paddingBottom="10sp">
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/powiklania_cykrzycy"/>
+                    <TextView
+                        android:id="@+id/textViewPowiklania"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/powiklania_cukrzycy"
+                        android:layout_gravity="center"
+                        android:textSize="30sp"
+                        android:textColor="@color/light_blue_900"/>
+                     <TextView
+                        android:id="@+id/textViewPowiklaniaDesc"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                         android:textAlignment="center"
+                        android:text="- Wczesne (ostre)\n- Późne (przewlekłe)\n- Dodatkowe artykuły\n...i wiele więcej"
+                        android:textSize="15sp"
+                        android:layout_marginStart="10sp"
+                        android:textColor="@color/light_blue_900"/>
+                </LinearLayout>
             </androidx.cardview.widget.CardView>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

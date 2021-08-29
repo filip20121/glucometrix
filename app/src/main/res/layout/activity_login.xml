@@ -87,7 +87,9 @@
                 android:id="@+id/buttonLogIn"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
-                android:text="@string/log_in"/>
+                android:text="@string/log_in"
+                android:textColor="@color/white"
+                android:background="@drawable/rounded_button"/>
 
             <Button
                 android:id="@+id/buttonRegister"

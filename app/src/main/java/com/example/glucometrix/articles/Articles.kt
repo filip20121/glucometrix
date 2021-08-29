@@ -1,8 +1,14 @@
 package com.example.glucometrix.articles
 
+import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
+import com.example.glucometrix.Account
+import com.example.glucometrix.AddGluco
+import com.example.glucometrix.Login
 import com.example.glucometrix.R
 
 class Articles : AppCompatActivity() {
@@ -11,6 +17,7 @@ class Articles : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_articles)
+        setSupportActionBar(findViewById(R.id.my_toolbar))
 
         val cardInsulinoodpornosc = findViewById<CardView>(R.id.card_view_insulinoodpornosc)
         val cardDiet = findViewById<CardView>(R.id.card_view_diet)
@@ -64,6 +71,41 @@ class Articles : AppCompatActivity() {
             }
             thread.start()
         }
+    }
+    override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
+        R.id.action_add_glucose -> {
+            val thread = Thread{
+                startActivity(Intent(this, AddGluco::class.java))
+            }
+            thread.start()
+            true
+        }
 
+        R.id.action_account -> {
+            val thread = Thread{
+                startActivity(Intent(this, Account::class.java))
+            }
+            thread.start()
+            true
+        }
+        R.id.action_logout -> {
+            val thread = Thread{
+                //val bundle = 3
+                //intent.putExtra(DESC, bundle);
+                startActivity(Intent(this, Login::class.java))
+                finish()
+            }
+            thread.start()
+            true
+        }
+        else -> {
+            super.onOptionsItemSelected(item)
+        }
+    }
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        val inflater = menuInflater
+        inflater.inflate(R.menu.menu_main, menu)
+        title = "Artykuły"
+        return super.onCreateOptionsMenu(menu)
     }
 }

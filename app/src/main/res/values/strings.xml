@@ -51,7 +51,6 @@
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
     <string name="developed_by_filip_koz_owski">Developed by Filip Kozłowski</string>
-    <string name="twoje_konto">Twoje konto</string>
     <string name="konto">Konto</string>
     <string name="dane_konta">Dane konta</string>
     <string name="haslo">Hasło: </string>
@@ -63,9 +62,19 @@
     <string name="insert_new_login">Wprowadź nową nazwę użytkownika</string>
     <string name="insert_new_paassword">Wprowadź nowe hasło</string>
     <string name="invalid_login_or_passwd">Nazwa użytkownika lub hasło jest niepoprawne</string>
-    <string name="dodaj_pomiar">Dodaj pomiar</string>
     <string name="description">Description</string>
     <string name="Gucose">Glucose</string>
     <string name="add_glucose">Add glucose</string>
     <string name="poka">Pokaż</string>
+    <string name="cukrzycopedia">Cukrzycopedia</string>
+    <string name="artyku_y">Artykuły</string>
+    <string name="twoje_konto">Twoje konto</string>
+    <string name="dodaj_pomiar">Dodaj pomiar</string>
+    <string name="pomiar_glukozy">Pomiar glukozy</string>
+    <string name="wskazniki">Wskaźniki</string>
+    <string name="login_">Login:</string>
+    <string name="zmie_dane_logowania">Zmień dane logowania</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="kalendarz">Kalendarz</string>
+    <string name="logout">Wyloguj się</string>
 </resources>

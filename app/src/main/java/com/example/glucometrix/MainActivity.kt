@@ -8,7 +8,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import com.example.glucometrix.Chart.Graph
 import com.example.glucometrix.articles.Articles
+import com.example.glucometrix.calendar.Calendar
 import com.example.glucometrix.indicators.Indicators
+import com.example.glucometrix.maps.MapsActivity
 
 class MainActivity : AppCompatActivity() {
     private val DESC: String = "DESC"
@@ -22,11 +24,23 @@ class MainActivity : AppCompatActivity() {
         val cardResults = findViewById<CardView>(R.id.card_view_results)
         val cardMeasures = findViewById<CardView>(R.id.card_view_measures)
         val cardArticles = findViewById<CardView>(R.id.card_view_articles)
+        val cardMap = findViewById<CardView>(R.id.map_view)
+        val cardCalendar = findViewById<CardView>(R.id.card_view_calendar)
 
+        cardCalendar.setOnClickListener{
+            val thread = Thread{
+                startActivity(Intent(this, Calendar::class.java))
+            }
+            thread.start()
+        }
+        cardMap.setOnClickListener{
+            val thread = Thread{
+                startActivity(Intent(this, MapsActivity::class.java))
+            }
+            thread.start()
+        }
         cardGraphs.setOnClickListener(){
             val thread = Thread{
-                val bundle = 1
-                intent.putExtra(DESC, bundle);
                 startActivity(Intent(this, Graph::class.java))
             }
             thread.start()
@@ -37,18 +51,14 @@ class MainActivity : AppCompatActivity() {
             }
             thread.start()
         }
-        cardMeasures.setOnClickListener(){
+        cardMeasures.setOnClickListener{
             val thread = Thread{
-                val bundle = 3
-                intent.putExtra(DESC, bundle);
                 startActivity(Intent(this, Indicators::class.java))
             }
             thread.start()
         }
         cardArticles.setOnClickListener(){
             val thread = Thread{
-                val bundle = 3
-                intent.putExtra(DESC, bundle);
                 startActivity(Intent(this, Articles::class.java))
             }
             thread.start()
@@ -75,7 +85,16 @@ class MainActivity : AppCompatActivity() {
             thread.start()
             true
         }
-
+        R.id.action_logout -> {
+            val thread = Thread{
+                //val bundle = 3
+                //intent.putExtra(DESC, bundle);
+                startActivity(Intent(this, Login::class.java))
+                finish()
+            }
+            thread.start()
+            true
+        }
         else -> {
             super.onOptionsItemSelected(item)
         }
@@ -85,6 +104,10 @@ class MainActivity : AppCompatActivity() {
         val inflater = menuInflater
         inflater.inflate(R.menu.menu_main, menu)
         return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onBackPressed() {
+
     }
 
 }

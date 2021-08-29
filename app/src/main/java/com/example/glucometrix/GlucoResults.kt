@@ -1,35 +1,24 @@
 package com.example.glucometrix
 
+import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.glucometrix.adapters.RecyclerAdapter
-import com.example.glucometrix.dataClass.DateGlucose
-import com.example.glucometrix.dataClass.GlucoseData
 import java.util.*
 
 
 //TODO - add new measure of glucose and displaying results down-to not up-to and display correctly two recycler views
 class GlucoResults : AppCompatActivity() {
-    var manager = supportFragmentManager
-    var glucoseList = mutableListOf("120", "145",
-            "101", "93",
-            "168", "67",
-            "113", "123")
-
-    var descriptionList = mutableListOf("after wake up",
-            "before breakfast", "after breakfast", "before dinner",
-            "after dinner", "before supper", "after supper",
-            "before sleep")
-    var hourList = mutableListOf("08:00",
-            "10:00", "12:00", "14:00",
-            "16:00", "18:00", "20:00",
-            "22:00")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_gluco_results)
+        setSupportActionBar(findViewById(R.id.my_toolbar))
+
         val array = DatabaseHandler(this).showDate()
         //Recycler view z datami
         val rvItem: RecyclerView = findViewById(R.id.recycler_view_results_glucose)
@@ -43,37 +32,50 @@ class GlucoResults : AppCompatActivity() {
         recycler_view_sub.adapter = RecyclerSubAdapter(buildSubItemList())*/
 
         rvItem.setOnClickListener(){
-            showGluco()
+
         }
         //changeColor()
     }
-    private fun buildItemList(): List<DateGlucose> {
-        val itemList: MutableList<DateGlucose> = ArrayList()
-        for (i in glucoseList.size-1 downTo 0) {
-           val item = DateGlucose("26.08.2021", buildSubItemList())
-            itemList.add(item)
+    override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
+        R.id.action_add_glucose -> {
+            val thread = Thread{
+                //val bundle = 3
+                //intent.putExtra(DESC, bundle);
+                startActivity(Intent(this, AddGluco::class.java))
+            }
+            thread.start()
+            true
         }
-        return itemList
-    }
 
-    private fun buildSubItemList(): List<GlucoseData> {
-        val subItemList: MutableList<GlucoseData> = ArrayList()
-        for (i in glucoseList.size-1 downTo 0) {
-            val subItem = GlucoseData(hourList[i], glucoseList[i], descriptionList[i])
-            subItemList.add(subItem)
+        R.id.action_account -> {
+            val thread = Thread{
+                //val bundle = 3
+                //intent.putExtra(DESC, bundle);
+                startActivity(Intent(this, Account::class.java))
+            }
+            thread.start()
+            true
         }
-        return subItemList
+        R.id.action_logout -> {
+            val thread = Thread{
+                //val bundle = 3
+                //intent.putExtra(DESC, bundle);
+                startActivity(Intent(this, Login::class.java))
+                finish()
+            }
+            thread.start()
+            true
+        }
+        else -> {
+            super.onOptionsItemSelected(item)
+        }
     }
-    private fun showGluco() {
-        val transaction = manager.beginTransaction()
-        val fragment = GlucoTableList()
-
-       // transaction.replace(R.id.fragment_date_glucose, fragment)
-
-        transaction.addToBackStack(null)
-        transaction.commit()
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        val inflater = menuInflater
+        inflater.inflate(R.menu.menu_main, menu)
+        title = "Dzienniczek"
+        return super.onCreateOptionsMenu(menu)
     }
-
     //TODO - add red color for low and high glucose
     /*private fun changeColor() {
         for(i in 0..1) {

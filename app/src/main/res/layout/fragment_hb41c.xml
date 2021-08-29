@@ -48,7 +48,10 @@
                     android:id="@+id/buttonHbA1c"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/oblicz" />
+                    android:text="@string/oblicz"
+                    android:padding="5sp"
+                    android:textColor="@color/white"
+                    android:background="@drawable/rounded_button" />
 
                 <TextView
                     android:id="@+id/HbA1cText"
@@ -63,8 +66,21 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="20sp"
-                    android:text=""
-                    android:textColor="@color/light_blue_600"/>
+                    android:textAlignment="center"
+                    android:text=""/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/HbA1cBlock"
+                        android:layout_width="40sp"
+                        android:layout_height="40sp"
+                        android:background="@color/black_overlay"
+                        android:padding="10dp"
+                        android:text=""
+                        android:layout_gravity="end"/>
+                </LinearLayout>
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

@@ -1,5 +1,6 @@
 package com.example.glucometrix.indicators
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,16 +11,12 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.example.glucometrix.R
 
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
 class AverageGlucose : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-
-        }
+        arguments?.let {}
     }
 
     override fun onCreateView(
@@ -31,23 +28,19 @@ class AverageGlucose : Fragment() {
         val button: Button = view.findViewById(R.id.butttonAVG)
         val days: EditText = view.findViewById(R.id.daysAverage)
         val avg: TextView = view.findViewById(R.id.resultAverage)
+        val box = view.findViewById<TextView>(R.id.AvgBlock)
 
-        button.setOnClickListener{
-            avg.text = days.text.toString().toInt().toString()
-            (activity as Indicators?)!!.avg(avg.text as String, avg)
+        button.setOnClickListener {
+            if (days.text.toString() != "") {
+                avg.text = days.text.toString().toInt().toString()
+                (activity as Indicators?)!!.avg(avg.text as String, avg, box)
+            }
+            else{
+                avg.setTextColor(Color.rgb(255, 0, 0))
+                avg.text = "Pole nie może być puste"
+            }
         }
         return view
-    }
-
-    companion object {
-
-        fun newInstance(param1: String, param2: String) =
-            AverageGlucose().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
     }
 
 }

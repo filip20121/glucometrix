@@ -30,6 +30,7 @@ class Login : AppCompatActivity() {
                 errorText.text=""
                 intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
+                finish()
             }
             else{
                 errorText.text = "Nazwa użytkownika lub hasło jest niepoprawne"

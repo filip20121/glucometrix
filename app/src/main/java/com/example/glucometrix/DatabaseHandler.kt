@@ -27,11 +27,14 @@ class DatabaseHandler(context: Context): SQLiteOpenHelper(
         private const val TABLE_USERS = "Users"
         private const val TABLE_GLUCO = "Glucoses"
         private const val TABLE_USERS_GLUCO = "Users_Gluco"
+        private const val TABLE_EVENTS = "Events"
 
         //column names
         //common
         private const val KEY_ID = "_id"
-
+        //Event column names
+        private const val KEY_DATE_EVENT = "date"
+        private const val KEY_DESC_EVENT = "description"
         //Users column names
         private const val KEY_LOGIN = "login"
         private const val KEY_PASSWORD = "password"
@@ -49,7 +52,7 @@ class DatabaseHandler(context: Context): SQLiteOpenHelper(
 
         private var curLogin = ""
         private var curPassw = ""
-        private var curId = 0
+        private var curId = 1
     }
 
     var glucoseList = mutableListOf("120", "145",
@@ -68,7 +71,12 @@ class DatabaseHandler(context: Context): SQLiteOpenHelper(
     var dateList = mutableListOf(
             "20.06.2021", "21.06.2021", "22.06.2021"
     )
-
+    var dateListEvent = mutableListOf(
+        "28.08", "29.08", "03.09"
+    )
+    var descListEvent = mutableListOf(
+        "urodziny mamy", "urodziny taty", "imieniny cioci"
+    )
     override fun onCreate(db: SQLiteDatabase?) {
         val CREATE_TABLE_USERS =
                 ("CREATE TABLE IF NOT EXISTS $TABLE_USERS($KEY_ID INTEGER PRIMARY KEY, $KEY_LOGIN TEXT, $KEY_PASSWORD TEXT);")
@@ -82,8 +90,11 @@ class DatabaseHandler(context: Context): SQLiteOpenHelper(
                 ("CREATE TABLE IF NOT EXISTS $TABLE_USERS_GLUCO($KEY_ID INTEGER PRIMARY KEY, $KEY_USERS_ID INTEGER, $KEY_GLUCO_ID INTEGER);")
         db?.execSQL(CREATE_TABLE_USER_GLUCO)
 
+        val CREATE_TABLE_EVENTS =
+            ("CREATE TABLE IF NOT EXISTS $TABLE_EVENTS($KEY_ID INTEGER PRIMARY KEY, $KEY_USER_ID, $KEY_DATE_EVENT TEXT, $KEY_DESC_EVENT TEXT);")
+        db?.execSQL(CREATE_TABLE_EVENTS)
         if (db != null) {
-            createTables(db, glucoseList, descriptionList, hourList, dateList)
+            createTables(db, glucoseList, descriptionList, hourList, dateList, dateListEvent, descListEvent)
         }
     }
 
@@ -91,6 +102,7 @@ class DatabaseHandler(context: Context): SQLiteOpenHelper(
         db!!.execSQL("DROP TABLE IF EXISTS $TABLE_USERS")
         db.execSQL("DROP TABLE IF EXISTS $TABLE_GLUCO")
         db.execSQL("DROP TABLE IF EXISTS $TABLE_USERS_GLUCO")
+        db.execSQL("DROP TABLE IF EXISTS $TABLE_EVENTS")
         onCreate(db)
     }
 
@@ -147,6 +159,50 @@ class DatabaseHandler(context: Context): SQLiteOpenHelper(
         db.close()
         return success
     }
+    fun addEvent(date: String, desc: String): Long {
+        val db = this.writableDatabase
+        val id = showID()
+        val contentValues = ContentValues()
+        contentValues.put(KEY_USER_ID, id)
+        contentValues.put(KEY_DATE_EVENT, date)
+        contentValues.put(KEY_DESC_EVENT, desc)
+
+        val success = db.insert(TABLE_EVENTS, null, contentValues)
+
+        db.close()
+        return success
+    }
+    fun showEventsDate(): List<String>{
+        val dateList: MutableList<String> = ArrayList()
+        val db = this.readableDatabase
+        val userId = getCurrId(db)
+        val selectQuery1 = "SELECT $KEY_DATE_EVENT FROM $TABLE_EVENTS WHERE $KEY_USER_ID;"
+
+        val c1: Cursor = db.rawQuery(selectQuery1, null)
+        if (c1.moveToFirst()) {
+            do {
+                val t = c1.getString(c1.getColumnIndex(KEY_DATE_EVENT))
+                dateList.add(t)
+            } while (c1.moveToNext())
+        }
+        return dateList
+    }
+
+    fun showEventsDesc(): List<String>{
+        val descList: MutableList<String> = ArrayList()
+        val db = this.readableDatabase
+        val userId = getCurrId(db)
+        val selectQuery1 = "SELECT $KEY_DESC_EVENT FROM $TABLE_EVENTS;"
+
+        val c1: Cursor = db.rawQuery(selectQuery1, null)
+        if (c1.moveToFirst()) {
+            do {
+                val t = c1.getString(c1.getColumnIndex(KEY_DESC_EVENT))
+                descList.add(t)
+            } while (c1.moveToNext())
+        }
+        return descList
+    }
 
     fun validateUser(login: String, password: String): Boolean {
         // array of columns to fetch
@@ -183,7 +239,8 @@ class DatabaseHandler(context: Context): SQLiteOpenHelper(
         return false;
     }
 
-    private fun createTables(db: SQLiteDatabase, glucoList: MutableList<String>, descList: List<String>, hourList: List<String>, dateList: MutableList<String>) {
+    private fun createTables(db: SQLiteDatabase, glucoList: MutableList<String>, descList: List<String>, hourList: List<String>, dateList: MutableList<String>,
+    dateListEvent: MutableList<String>, descListEvent: MutableList<String>) {
         val values = ContentValues()
 
         for (i in 0 until dateList.size) {
@@ -195,6 +252,12 @@ class DatabaseHandler(context: Context): SQLiteOpenHelper(
                 values.put(KEY_USER_ID, showID())
                 db.insert(TABLE_GLUCO, null, values)
             }
+        }
+        for(i in 0 until dateListEvent.size){
+            values.put(KEY_DATE_EVENT, dateListEvent[i])
+            values.put(KEY_DESC_EVENT, descListEvent[i])
+            values.put(KEY_USER_ID, showID())
+            db.insert(TABLE_EVENTS, null, values)
         }
     }
 
@@ -212,10 +275,10 @@ class DatabaseHandler(context: Context): SQLiteOpenHelper(
                 do {
                     val date = c1.getString(c1.getColumnIndex(KEY_DATE))
                     val c: Cursor = db.rawQuery(selectQuery, null)
-                    if (c.moveToFirst()) { //
+                    if (c.moveToFirst()) {
                         do {
                             val date1 = c.getString(c.getColumnIndex(KEY_DATE))
-                            if (date1 == date) {//
+                            if (date1 == date) {
                                 val t = GlucoseData(
                                         c.getString(c.getColumnIndex(KEY_HOUR)),
                                         c.getString(c.getColumnIndex(KEY_GLUCOSE)),
@@ -273,10 +336,10 @@ class DatabaseHandler(context: Context): SQLiteOpenHelper(
             do {
                 val date = c1.getString(c1.getColumnIndex(KEY_DATE))
                 val c: Cursor = db.rawQuery(selectQuery, null)
-                if (c.moveToFirst()) { //
+                if (c.moveToFirst()) {
                     do {
                         val date1 = c.getString(c.getColumnIndex(KEY_DATE))
-                        if (date1 == date) {//
+                        if (date1 == date) {
                             val t = c.getString(c.getColumnIndex(KEY_HOUR))
                             hourList.add(t)
                         }
@@ -298,10 +361,10 @@ class DatabaseHandler(context: Context): SQLiteOpenHelper(
             do {
                 val date = c1.getString(c1.getColumnIndex(KEY_DATE))
                 val c: Cursor = db.rawQuery(selectQuery, null)
-                if (c.moveToFirst()) { //
+                if (c.moveToFirst()) {
                     do {
                         val date1 = c.getString(c.getColumnIndex(KEY_DATE))
-                        if (date1 == date) {//
+                        if (date1 == date) {
                             val t = c.getString(c.getColumnIndex(KEY_DESC))
                             descList.add(t)
                         }
@@ -323,10 +386,10 @@ class DatabaseHandler(context: Context): SQLiteOpenHelper(
             do {
                 val date = c1.getString(c1.getColumnIndex(KEY_DATE))
                 val c: Cursor = db.rawQuery(selectQuery, null)
-                if (c.moveToFirst()) { //
+                if (c.moveToFirst()) {
                     do {
                         val date1 = c.getString(c.getColumnIndex(KEY_DATE))
-                        if (date1 == date) {//
+                        if (date1 == date) {
                             val t = c.getString(c.getColumnIndex(KEY_GLUCOSE))
                             glucoseList.add(t)
                         }

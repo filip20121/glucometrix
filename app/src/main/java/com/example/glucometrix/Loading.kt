@@ -30,8 +30,8 @@ class Loading : AppCompatActivity() {
 
         val thread = Thread{
             sleep(5000)
-            finish()
             startActivity(Intent(this, Login::class.java))
+            finish()
         }
         thread.start()
 }

@@ -9,10 +9,10 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardBackgroundColor="#f3f3f3"
         app:cardElevation="8dp"
         android:layout_margin="12dp"
-        android:scrollbars="horizontal">
+        android:scrollbars="horizontal"
+        app:cardPreventCornerOverlap="false">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -28,7 +28,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="16dp"
-                android:background="@color/teal_700"
+                android:background="@color/light_blue_900"
                 android:text="@string/_26_lipiec_2020"
                 android:textAlignment="center"
                 android:textColor="@color/white"
