@@ -48,11 +48,6 @@ class Account : AppCompatActivity() {
             curPass.text = password
             Toast.makeText(applicationContext, "Password was changed", LENGTH_LONG)
         }
-        /* load image from gallery and display it, after pressing the back button image disapear
-        button.setOnClickListener {
-            val gallery = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI)
-            startActivityForResult(gallery, pickImage)
-        }*/
     }
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -67,7 +62,6 @@ class Account : AppCompatActivity() {
         img = sharedPref.getString(
             "dane",
             "")
-        //imageView.setImageURI(Uri.parse(img))
     }
 
     override fun onPause() {

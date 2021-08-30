@@ -135,7 +135,6 @@ class DatabaseHandler(context: Context): SQLiteOpenHelper(
             db.execSQL(strSQL)
         }
 
-        // db.update(TABLE_USERS, contentValues, "_id = ?", arrayOf(KEY_ID));
         db.close()
     }
 
@@ -267,8 +266,8 @@ class DatabaseHandler(context: Context): SQLiteOpenHelper(
         val dateGlucoseList: MutableList<DateGlucose> = ArrayList()
         val db = this.readableDatabase
         val userId = getCurrId(db)
-        val selectQuery = "SELECT $KEY_USER_ID, $KEY_DATE, $KEY_HOUR, $KEY_GLUCOSE, $KEY_DESC FROM $TABLE_GLUCO WHERE $KEY_USER_ID ='$userId' ORDER BY $KEY_DATE DESC;"
-        val selectQuery1 = "SELECT DISTINCT $KEY_DATE FROM $TABLE_GLUCO WHERE $KEY_USER_ID ='$userId';"
+        val selectQuery = "SELECT $KEY_USER_ID, $KEY_DATE, $KEY_HOUR, $KEY_GLUCOSE, $KEY_DESC FROM $TABLE_GLUCO WHERE $KEY_USER_ID ='$userId' ORDER BY $KEY_DATE, $KEY_HOUR DESC;"
+        val selectQuery1 = "SELECT DISTINCT $KEY_DATE FROM $TABLE_GLUCO WHERE $KEY_USER_ID ='$userId' ORDER BY $KEY_DATE DESC;"
 
         val c1: Cursor = db.rawQuery(selectQuery1, null)
             if (c1.moveToFirst()) {
@@ -455,5 +454,6 @@ class DatabaseHandler(context: Context): SQLiteOpenHelper(
     fun showPassword(): String {
         return curPassw
     }
+
 }
 

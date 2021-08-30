@@ -10,7 +10,6 @@ import com.example.glucometrix.dataClass.GlucoseData
 import java.util.*
 
 class AddGluco : AppCompatActivity() {
-    var desc:String = ""
 
     @SuppressLint("ShowToast", "SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,9 +29,7 @@ class AddGluco : AppCompatActivity() {
             }else{
                 confirm.text = "Wystąpił błąd. Pomiar nie został dodany"
             }
-
         }
-
 
 // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter.createFromResource(

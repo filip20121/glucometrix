@@ -23,24 +23,15 @@ class GlucoResults : AppCompatActivity() {
         //Recycler view z datami
         val rvItem: RecyclerView = findViewById(R.id.recycler_view_results_glucose)
         val layoutManager = LinearLayoutManager(this@GlucoResults)
-        val itemAdapter = RecyclerAdapter(array)//buildItemList())
+        val itemAdapter = RecyclerAdapter(array)
         rvItem.adapter = itemAdapter
         rvItem.layoutManager = layoutManager
 
-       /* val recycler_view_sub = findViewById<RecyclerView>(R.id.recycler_view_results_glucose_sub)
-        recycler_view_sub.layoutManager = LinearLayoutManager(this)
-        recycler_view_sub.adapter = RecyclerSubAdapter(buildSubItemList())*/
-
-        rvItem.setOnClickListener(){
-
-        }
         //changeColor()
     }
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
         R.id.action_add_glucose -> {
             val thread = Thread{
-                //val bundle = 3
-                //intent.putExtra(DESC, bundle);
                 startActivity(Intent(this, AddGluco::class.java))
             }
             thread.start()
@@ -49,8 +40,6 @@ class GlucoResults : AppCompatActivity() {
 
         R.id.action_account -> {
             val thread = Thread{
-                //val bundle = 3
-                //intent.putExtra(DESC, bundle);
                 startActivity(Intent(this, Account::class.java))
             }
             thread.start()
@@ -58,8 +47,6 @@ class GlucoResults : AppCompatActivity() {
         }
         R.id.action_logout -> {
             val thread = Thread{
-                //val bundle = 3
-                //intent.putExtra(DESC, bundle);
                 startActivity(Intent(this, Login::class.java))
                 finish()
             }
@@ -76,20 +63,4 @@ class GlucoResults : AppCompatActivity() {
         title = "Dzienniczek"
         return super.onCreateOptionsMenu(menu)
     }
-    //TODO - add red color for low and high glucose
-    /*private fun changeColor() {
-        for(i in 0..1) {
-            //val name = "textView$i"
-            val id = resources.getIdentifier(R.id.textGlucose.toString(), "id", packageName)
-            if (id != 0) {
-                val glucoseText = findViewById<TextView>(id)
-                val glucose = glucoseText.text.toString()
-
-                if (glucose.toInt() < 70 || glucose.toInt() > 199) {
-                    glucoseText.setTextColor(Color.RED)
-                }
-            }
-        }
-    }*/
-
 }

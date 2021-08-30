@@ -16,6 +16,7 @@ class RecyclerSubAdapter(private var subItemList: List<GlucoseData>)
         return SubViewHolder(v)
     }
 
+
     override fun onBindViewHolder(subItemViewHolder: SubViewHolder, position: Int) {
         val subItem: GlucoseData = subItemList[position]
         subItemViewHolder.itemHour.text = subItem.getSubItemHour()

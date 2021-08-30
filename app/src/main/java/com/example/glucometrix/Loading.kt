@@ -10,10 +10,6 @@ import android.widget.VideoView
 import androidx.appcompat.app.AppCompatActivity
 import java.lang.Thread.sleep
 
-/**
- * An example full-screen activity that shows and hides the system UI (i.e.
- * status bar and navigation/system bar) with user interaction.
- */
 class Loading : AppCompatActivity() {
 
     @SuppressLint("ClickableViewAccessibility")
@@ -48,13 +44,5 @@ private fun hideSystemUI() {
             // Hide the nav bar and status bar
             or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
             or View.SYSTEM_UI_FLAG_FULLSCREEN)
-}
-
-// Shows the system bars by removing all the flags
-// except for the ones that make the content appear under the system bars.
-private fun showSystemUI() {
-    window.decorView.systemUiVisibility = (View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-            or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-            or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN)
 }
 }

@@ -13,7 +13,6 @@ import com.example.glucometrix.indicators.Indicators
 import com.example.glucometrix.maps.MapsActivity
 
 class MainActivity : AppCompatActivity() {
-    private val DESC: String = "DESC"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,8 +67,6 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
         R.id.action_add_glucose -> {
             val thread = Thread{
-                //val bundle = 3
-                //intent.putExtra(DESC, bundle);
                 startActivity(Intent(this, AddGluco::class.java))
             }
             thread.start()
@@ -78,8 +75,6 @@ class MainActivity : AppCompatActivity() {
 
         R.id.action_account -> {
             val thread = Thread{
-                //val bundle = 3
-                //intent.putExtra(DESC, bundle);
                 startActivity(Intent(this, Account::class.java))
             }
             thread.start()
@@ -87,8 +82,6 @@ class MainActivity : AppCompatActivity() {
         }
         R.id.action_logout -> {
             val thread = Thread{
-                //val bundle = 3
-                //intent.putExtra(DESC, bundle);
                 startActivity(Intent(this, Login::class.java))
                 finish()
             }

@@ -90,8 +90,6 @@ class Articles : AppCompatActivity() {
         }
         R.id.action_logout -> {
             val thread = Thread{
-                //val bundle = 3
-                //intent.putExtra(DESC, bundle);
                 startActivity(Intent(this, Login::class.java))
                 finish()
             }

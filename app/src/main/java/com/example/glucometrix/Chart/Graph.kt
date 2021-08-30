@@ -27,24 +27,11 @@ import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener
 import com.github.mikephil.charting.utils.Utils
 
-
-/* TODO see below
- */
 class Graph : AppCompatActivity(), SeekBar.OnSeekBarChangeListener, OnChartValueSelectedListener {
     private var chart: LineChart? = null
     private var seekBarX: SeekBar? = null
-    //private var seekBarY: SeekBar? = null
     private var tvX: TextView? = null
-    private var tvY: TextView? = null
-    private var hourArray = mutableListOf("08:00",
-            "10:00", "12:00", "14:00",
-            "16:00", "18:00", "20:00",
-            "22:00")
 
-    private var glucoArray = mutableListOf("120", "145",
-            "101", "93",
-            "168", "67",
-            "113", "123")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,13 +45,9 @@ class Graph : AppCompatActivity(), SeekBar.OnSeekBarChangeListener, OnChartValue
         val hourList = DatabaseHandler(this).showHour()
         title = "Glucose results"
         tvX = findViewById(R.id.tvXMax)
-        //tvY = findViewById(R.id.tvYMax)
         seekBarX = findViewById(R.id.seekBar1)
-        seekBarX!!.max = glucoSize//hourArray.size
+        seekBarX!!.max = glucoSize
         seekBarX!!.setOnSeekBarChangeListener(this)
-        //seekBarY = findViewById(R.id.seekBar2)
-        //seekBarY!!.max = 180
-        // seekBarY!!.setOnSeekBarChangeListener(this)
 
         run {
             // // Chart Style // //
@@ -93,8 +76,6 @@ class Graph : AppCompatActivity(), SeekBar.OnSeekBarChangeListener, OnChartValue
             // enable scaling and dragging
             chart!!.isDragEnabled = true
             chart!!.setScaleEnabled(true)
-            // chart.setScaleXEnabled(true);
-            // chart.setScaleYEnabled(true);
 
             // force pinch zoom along both axis
             chart!!.setPinchZoom(true)
@@ -139,9 +120,6 @@ class Graph : AppCompatActivity(), SeekBar.OnSeekBarChangeListener, OnChartValue
         // draw legend entries as lines
         l.form = LegendForm.LINE
     }
-
-    //TODO - popraw Entry by poprawnie wskazywało godziny pomiarów przy zmienianiu seekBaru
-
 
     @SuppressLint("UseCompatLoadingForDrawables")
     private fun setData(count: Int) {
@@ -215,7 +193,6 @@ class Graph : AppCompatActivity(), SeekBar.OnSeekBarChangeListener, OnChartValue
 
     override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
         tvX!!.text = seekBarX!!.progress.toString()
-        //tvY!!.text = seekBarY!!.progress.toString()
         setData(seekBarX!!.progress)//, seekBarY!!.progress.toFloat())
 
         // redraw
